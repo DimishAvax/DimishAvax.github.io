@@ -1,41 +1,22 @@
-name: Build and Deploy to GitHub Pages
+# .github/workflows/deploy.yml
+name: CI Deploy to gh-pages
 
 on:
   push:
-    branches:
-      - main # or your default branch
-
-permissions:
-  contents: read # for checkout
-  pages: write # to publish
-  id-token: write # if you ever need OIDC
+    branches: [main]
 
 jobs:
-  build-and-publish:
+  deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Check out code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
+      - uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: 18
 
-      - name: Install dependencies
-        run: npm ci
+      - run: npm ci
 
-      - name: Build
-        run: npm run build
-
-      - name: Configure GitHub Pages
-        uses: actions/configure-pages@v3
-
-      - name: Upload build output
-        uses: actions/upload-pages-artifact@v1
-        with:
-          path: ./dist
-
-      - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v1
+      - run: npm run deploy
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
