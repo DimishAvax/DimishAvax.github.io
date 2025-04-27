@@ -6,7 +6,7 @@ import vueDevTools from 'vite-plugin-vue-devtools';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: process.env.NODE_ENV === 'production' ? '/DimishAvax.github.io/' : '/',
+  base: '/', // Change this line - no repository name needed for user sites
   plugins: [vue(), vueDevTools()],
   resolve: {
     alias: {
@@ -14,8 +14,8 @@ export default defineConfig({
     },
   },
   optimizeDeps: {
+    include: ['vuetify/styles'], // Add this
     esbuildOptions: {
-      // Enable top-level await and other modern features
       target: 'es2020',
     },
   },
@@ -26,6 +26,7 @@ export default defineConfig({
         manualChunks: {
           'web3-onboard': ['@web3-onboard/core', '@web3-onboard/injected-wallets'],
           ethers: ['ethers'],
+          vuetify: ['vuetify'], // Add this
         },
       },
     },
