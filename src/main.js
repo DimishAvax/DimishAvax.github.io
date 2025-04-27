@@ -1,5 +1,5 @@
 // Styles
-import 'vuetify/dist/vuetify.min.css';
+import 'vuetify/styles';
 import '@mdi/font/css/materialdesignicons.css';
 
 // Vue and plugins
