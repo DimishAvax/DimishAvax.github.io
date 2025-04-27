@@ -25,13 +25,12 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Fix module resolution
-        run: |
-          mkdir -p dist/assets
-          cp -r node_modules/vuetify/dist/vuetify.min.css dist/assets/
+      - name: List dist directory contents
+        run: ls -la dist/
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: dist
           branch: gh-pages
+          clean: true # This ensures the branch is clean before deployment
