@@ -2,19 +2,17 @@ import { fileURLToPath, URL } from 'node:url';
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import vueDevTools from 'vite-plugin-vue-devtools';
-import vuetify from 'vite-plugin-vuetify';
 
 export default defineConfig({
   base: '/',
-  plugins: [vue(), vueDevTools(), vuetify({ autoImport: true })],
+  plugins: [vue(), vueDevTools()],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
+      'vuetify/styles': fileURLToPath(new URL('./node_modules/vuetify/dist/vuetify.min.css', import.meta.url)),
     },
   },
   optimizeDeps: {
-    include: ['vuetify'],
-    exclude: ['vuetify/lib/framework'],
     esbuildOptions: {
       target: 'es2020',
     },
