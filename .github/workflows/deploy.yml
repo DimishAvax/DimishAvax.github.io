@@ -1,31 +1,25 @@
-# .github/workflows/deploy.yml
-name: CI Deploy to gh-pages
-
+name: CI Deploy to GitHub Pages
 on:
   push:
-    branches: [main]
+    branches: [main] # or your default branch
 
 permissions:
-  contents: write # allow pushes back into your repo
+  contents: write # allow pushes back to the repo
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v3
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
         with:
           node-version: 18
 
-      - name: Install & build
-        run: |
-          npm ci
-          npm run deploy    # this runs predeploy → build, then gh-pages
+      - run: npm ci
 
-        # Pass the token so gh-pages can push
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: npm run deploy
