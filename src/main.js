@@ -1,14 +1,14 @@
 // Styles
-import 'vuetify/styles'
-import '@mdi/font/css/materialdesignicons.css'
+import 'vuetify/dist/vuetify.min.css';
+import '@mdi/font/css/materialdesignicons.css';
 
 // Vue and plugins
-import { createApp } from 'vue'
-import { createVuetify } from 'vuetify'
-import { createPinia } from 'pinia'
-import * as components from 'vuetify/components'
-import * as directives from 'vuetify/directives'
-import App from './App.vue'
+import { createApp } from 'vue';
+import { createVuetify } from 'vuetify';
+import { createPinia } from 'pinia';
+import * as components from 'vuetify/components';
+import * as directives from 'vuetify/directives';
+import App from './App.vue';
 
 const vuetify = createVuetify({
   components,
@@ -28,8 +28,8 @@ const vuetify = createVuetify({
           warning: '#FFC107',
           background: '#f5f5f5',
           surface: '#ffffff',
-          'on-surface': '#212121'
-        }
+          'on-surface': '#212121',
+        },
       },
       dark: {
         dark: true,
@@ -43,16 +43,13 @@ const vuetify = createVuetify({
           warning: '#FFC107',
           background: '#121212',
           surface: '#1E1E1E',
-          'on-surface': '#EEEEEE'
-        }
-      }
-    }
-  }
-})
+          'on-surface': '#EEEEEE',
+        },
+      },
+    },
+  },
+});
 
-const pinia = createPinia()
+const pinia = createPinia();
 
-createApp(App)
-  .use(vuetify)
-  .use(pinia)
-  .mount('#app')
+createApp(App).use(vuetify).use(pinia).mount('#app');
