@@ -9,7 +9,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
-      'vuetify/styles': fileURLToPath(new URL('./node_modules/vuetify/dist/vuetify.min.css', import.meta.url)),
+      // Removed the vuetify/styles alias
     },
   },
   optimizeDeps: {
