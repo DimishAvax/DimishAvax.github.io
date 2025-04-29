@@ -1,25 +1,35 @@
-name: CI Deploy to GitHub Pages
+name: Deploy to GitHub Pages
+
 on:
   push:
-    branches: [main] # or your default branch
-
-permissions:
-  contents: write # allow pushes back to the repo
+    branches:
+      - main
+  workflow_dispatch:
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
-
-    env:
-      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
 
-      - uses: actions/setup-node@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: '18'
+          cache: 'npm'
 
-      - run: npm ci
+      - name: Install Dependencies
+        working-directory: ./
+        run: npm ci
 
-      - run: npm run deploy
+      - name: Build
+        working-directory: ./
+        run: npm run build
+
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: ./dist
+          branch: gh-pages
+          clean: true
